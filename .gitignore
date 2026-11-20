@@ -7,3 +7,6 @@ target/
 
 # Private prep notes
 CLAUDE.local.md
+
+# AI query log, kept locally for the application
+ai-log.md

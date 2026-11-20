@@ -28,6 +28,16 @@ proper certificate and you leave this off.
    set in SSMS under server Properties > Security, then a restart.
 </details>
 
+**Q: What is a schema?**
+<details><summary>Answer</summary>
+
+The structure of a database: tables, columns, types and constraints, as
+opposed to the data (rows) stored in it. Like a C# class versus its
+instances. `schema.sql` defines the shape; the scraper fills it with data.
+In SQL Server, "schema" also means a named container for tables inside a
+database, like a namespace; the default is `dbo`, hence `dbo.Job`.
+</details>
+
 **Q: What is a primary key? What is a foreign key?**
 <details><summary>Answer</summary>
 
@@ -473,6 +483,11 @@ differ from the remote and need a force-push, which can destroy others' work.
 For a multi-line message use several `-m` flags: the first is the subject
 (short, imperative, under ~70 chars, "Add X" not "Added X"), the next is the
 body with details. Enter in a terminal always runs the command.
+
+Formula for the subject: finish "If applied, this commit will ___" with a
+verb (Add, Fix, Update, Remove). Body: what's in it if the subject is a
+summary, why it was done (the most valuable part), and anything surprising.
+Skip the body if the subject says it all.
 </details>
 
 **Q: Java naming conventions vs C#?**

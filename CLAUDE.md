@@ -209,6 +209,7 @@ the date, the decision and the reason, so a new session doesn't reopen it.
 - 2026-11-19: App account `scraper_app` gets read/write roles only, not `db_owner`. Least privilege; `schema.sql` is run by an admin.
 - 2026-11-19: groupId `io.github.gambitanimating`, artifactId `job-scraper`.
 - 2026-11-19: SQL names in PascalCase (`Company`, `ExternalId`, `PK_Company`, `UQ_Company_Name`, `FK_Job_Company`). Common in SQL Server shops and matches the C# side; Java code stays camelCase and maps columns by name in JDBC.
+- 2026-11-19: `ai-log.md` is kept locally and git-ignored, not published; submit it only if the hiring exam asks. Still update it after each substantial request.
 
 ## Keeping this file current
 
@@ -291,7 +292,7 @@ Reports and tuning (2 hours)
 Finish (1.5 hours)
 - [ ] One unit test per parser
 - [ ] README complete: what it does, how to run it, source assessments, next steps
-- [ ] `ai-log.md` committed; no credentials in the repo
+- [ ] No credentials in the repo; `ai-log.md` reviewed (kept local, git-ignored, decided 2026-11-19)
 
 Apply (by 8pm)
 - [ ] Resume updated
