@@ -208,6 +208,7 @@ the date, the decision and the reason, so a new session doesn't reopen it.
 - 2026-11-19: Jackson 2.x, not 3.x. What existing codebases and tutorials use.
 - 2026-11-19: App account `scraper_app` gets read/write roles only, not `db_owner`. Least privilege; `schema.sql` is run by an admin.
 - 2026-11-19: groupId `io.github.gambitanimating`, artifactId `job-scraper`.
+- 2026-11-19: SQL names in PascalCase (`Company`, `ExternalId`, `PK_Company`, `UQ_Company_Name`, `FK_Job_Company`). Common in SQL Server shops and matches the C# side; Java code stays camelCase and maps columns by name in JDBC.
 
 ## Keeping this file current
 
@@ -244,12 +245,12 @@ Setup
 - [x] Maven project runs a hello world
 - [x] jsoup, Jackson and the SQL Server JDBC driver in `pom.xml`
 - [x] JDBC connection runs `SELECT 1`
-- [ ] GitHub repo created and pushed
+- [x] GitHub repo created and pushed (github.com/GambitAnimating/job-scraper)
 
 Schema
-- [ ] `schema.sql` written by hand: three tables, keys, unique constraint
-- [ ] Two rows inserted by hand; a duplicate tried and the error read
-- [ ] One `SELECT` with a `JOIN` between `job` and `company`
+- [x] `schema.sql` written by hand: three tables, keys, unique constraint
+- [x] Two rows inserted by hand; a duplicate tried and the error read
+- [x] One `SELECT` with a `JOIN` between `job` and `company`
 
 JSON source
 - [ ] Feed structure read in a browser before coding

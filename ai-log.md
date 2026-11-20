@@ -15,3 +15,7 @@ one-line summary of what it produced.
   **Result:** Verified `scraper_app` user and roles in SQL Server, gave the `setx` commands for `DB_URL`/`DB_USER`/`DB_PASSWORD`, and drafted `ConnectionCheck.java` (JDBC `SELECT 1` with try-with-resources) with a line-by-line explanation.
 - **Prompt:** chose "Split it" for how CLAUDE.md goes on GitHub
   **Result:** Moved the resume, email and interview-prep section into a private, git-ignored `CLAUDE.local.md`; the public `CLAUDE.md` keeps the working rules and checklist.
+- **Prompt:** "oops accidentally did it in wrong folder how can I fix that" (git init run in the home folder)
+  **Result:** Confirmed the stray repo was empty, explained how to remove it and re-init in the project; then explained `git commit --amend` and multi-paragraph `-m` messages. Repo pushed to github.com/GambitAnimating/job-scraper.
+- **Prompt:** Schema block: reviews of hand-written `schema.sql` (four rounds), "Give me mock data for jobs to insert", and questions on naming, NVARCHAR, constraints, identity gaps and joins.
+  **Result:** Reviewed each version of the schema (missing IDENTITY/UNIQUE, constraint vs column names, FK on the wrong column, drop-order typo), supplied mock job values, and diagnosed a JOIN on `Id = Id` instead of the foreign key. Claude wrote no SQL for the schema or queries.
