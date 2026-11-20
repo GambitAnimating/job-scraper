@@ -1,0 +1,20 @@
+{
+  "jobs": [
+    {
+      "id": 7012345,
+      "title": "Backend Engineer",
+      "company_name": "Stripe",
+      "absolute_url": "https://stripe.com/jobs/search?gh_jid=7012345",
+      "first_published": "2026-09-09T10:50:29-04:00",
+      "location": { "name": "Remote, US" }
+    },
+    {
+      "id": 7012388,
+      "title": "Data Engineer",
+      "company_name": "Stripe",
+      "absolute_url": "https://stripe.com/jobs/search?gh_jid=7012388",
+      "first_published": null
+    }
+  ],
+  "meta": { "total": 2 }
+}

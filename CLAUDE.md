@@ -260,7 +260,7 @@ JSON source
 - [x] Feed structure read in a browser before coding
 - [x] `Job` record and `JobSource` interface written by me
 - [x] Fetch with `HttpClient`, map with Jackson, print the jobs
-- [ ] Missing fields handled without crashing
+- [x] Missing fields handled without crashing (GreenhouseSourceTest, 2026-11-20)
 
 Database load
 - [x] `JobRepository` with parameterized statements
