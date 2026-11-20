@@ -14,8 +14,9 @@ Association. The job is writing Java scrapers that pull job postings from
 websites and feeds into SQL Server. This repo is a two-day project where I do
 that job at small scale, to learn it and to link in my application.
 
-**Deadline: Friday 20 November 2026, 8:00pm Eastern.** The application goes
-out then with whatever is working.
+**Deadline: Friday 20 November 2026, 1:30pm Eastern** (moved up on the advice
+of a contact at the company). The application goes out then with whatever is
+working; the project keeps going through the weekend.
 
 The goal is not only a working project. I must be able to explain every line
 in an interview, so my understanding matters more than speed.
@@ -211,6 +212,7 @@ the date, the decision and the reason, so a new session doesn't reopen it.
 - 2026-11-19: SQL names in PascalCase (`Company`, `ExternalId`, `PK_Company`, `UQ_Company_Name`, `FK_Job_Company`). Common in SQL Server shops and matches the C# side; Java code stays camelCase and maps columns by name in JDBC.
 - 2026-11-19: `ai-log.md` is kept locally and git-ignored, not published; submit it only if the hiring exam asks. Still update it after each substantial request.
 - 2026-11-19: `JobSource.fetch()` declares `throws IOException, InterruptedException` (Jed's choice). Failures must not be silent; callers are forced to handle a source failing, and `Main` catches per source so one broken site doesn't stop the others.
+- 2026-11-20: Apply by 1:30pm today, not 8pm. Plan: Database load (until 11:45 hard stop), README with an honest "status and next steps" (11:45-12:30), resume and cover letter (12:30-1:15), send. HTML and XML sources move to the weekend; the README says so.
 
 ## Keeping this file current
 
@@ -261,13 +263,13 @@ JSON source
 - [ ] Missing fields handled without crashing
 
 Database load
-- [ ] `JobRepository` with parameterized statements
-- [ ] Upsert with `MERGE`, updating `last_seen`
-- [ ] Each run recorded in `scrape_run`
-- [ ] Second run leaves the job count unchanged
+- [x] `JobRepository` with parameterized statements
+- [x] Upsert with `MERGE`, updating `last_seen`
+- [x] Each run recorded in `scrape_run`
+- [x] Second run leaves the job count unchanged (775 new, then 0 new, 2026-11-20)
 
 Close out
-- [ ] Five-question quiz answered
+- [x] Five-question quiz answered (9.5/11 on 2026-11-19; weak spots: MERGE not yet learned, "why declare checked exceptions" = forces callers to handle, C# has no checked exceptions, row vs column)
 - [ ] `notes.md` reread
 
 ### Day 2: Friday
@@ -307,7 +309,8 @@ which is private and not committed. Read it too.
 
 ## Where we stopped
 
-(nothing yet)
+2026-11-19, about 9:30pm: Setup, Schema and 3 of 4 JSON items done; GreenhouseSource fetches all 772 Stripe jobs; quiz 9.5/11; everything pushed. Database load block (4 items) not started; `notes.md` reread pending.
+Next: start Friday with Database load (teach MERGE first; it's the quiz's biggest gap), then HTML source. Tick "missing fields handled" once the Greenhouse parser test exists. Friday is tight: drop the XML source first if needed.
 
 ## What I must be able to do unaided by the end
 
