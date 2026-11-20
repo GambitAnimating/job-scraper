@@ -193,7 +193,7 @@ starts, ask me for it and write the answer here before doing anything else.**
 - Build command: `mvn package`
 - Run command:
 - Test command: `mvn test`
-- JSON source chosen (name, URL, robots.txt checked on):
+- JSON source chosen (name, URL, robots.txt checked on): Greenhouse Job Board API, Stripe board, `https://boards-api.greenhouse.io/v1/boards/stripe/jobs`. Official public API, no auth; robots.txt only disallows `/embed/`; checked and approved 2026-11-19 (772 jobs at the time).
 - HTML source chosen (name, URL, robots.txt checked on):
 - XML source chosen (name, URL, robots.txt checked on):
 
@@ -210,6 +210,7 @@ the date, the decision and the reason, so a new session doesn't reopen it.
 - 2026-11-19: groupId `io.github.gambitanimating`, artifactId `job-scraper`.
 - 2026-11-19: SQL names in PascalCase (`Company`, `ExternalId`, `PK_Company`, `UQ_Company_Name`, `FK_Job_Company`). Common in SQL Server shops and matches the C# side; Java code stays camelCase and maps columns by name in JDBC.
 - 2026-11-19: `ai-log.md` is kept locally and git-ignored, not published; submit it only if the hiring exam asks. Still update it after each substantial request.
+- 2026-11-19: `JobSource.fetch()` declares `throws IOException, InterruptedException` (Jed's choice). Failures must not be silent; callers are forced to handle a source failing, and `Main` catches per source so one broken site doesn't stop the others.
 
 ## Keeping this file current
 
@@ -254,9 +255,9 @@ Schema
 - [x] One `SELECT` with a `JOIN` between `job` and `company`
 
 JSON source
-- [ ] Feed structure read in a browser before coding
-- [ ] `Job` record and `JobSource` interface written by me
-- [ ] Fetch with `HttpClient`, map with Jackson, print the jobs
+- [x] Feed structure read in a browser before coding
+- [x] `Job` record and `JobSource` interface written by me
+- [x] Fetch with `HttpClient`, map with Jackson, print the jobs
 - [ ] Missing fields handled without crashing
 
 Database load
