@@ -85,5 +85,5 @@ for it. I wrote the schema, the `Job` record, the `JobSource`
 interface, the HTTP fetch in `GreenhouseSource`, `Main`, and the `MERGE`
 statement (drafted and tested by hand in SSMS). Claude drafted the JSON
 parsing in `GreenhouseSource`, the JDBC code in `JobRepository` around my
-`MERGE`, and this README, and I reviewed each part. I keep a log of the
-prompts I used.
+`MERGE`, and this README, and I reviewed each part. I keep a log of my
+prompts and can share it on request.
