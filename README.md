@@ -80,8 +80,8 @@ Requirements: Java 21, Maven, SQL Server (Developer edition works).
 
 ## How I used AI
 
-I worked with Claude Code as a tutor and pair programmer, under written rules
-(`CLAUDE.md`). I wrote the schema, the `Job` record, the `JobSource`
+I worked with Claude Code as a tutor and pair programmer, under rules I wrote
+for it. I wrote the schema, the `Job` record, the `JobSource`
 interface, the HTTP fetch in `GreenhouseSource`, `Main`, and the `MERGE`
 statement (drafted and tested by hand in SSMS). Claude drafted the JSON
 parsing in `GreenhouseSource`, the JDBC code in `JobRepository` around my
