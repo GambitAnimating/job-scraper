@@ -10,6 +10,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,11 @@ public class GreenhouseSource implements JobSource {
 
     /** "2026-09-09T10:50:29-04:00" -> 2026-09-09, or null if there's no date. */
     private static LocalDate date(String timestamp) {
-        return timestamp == null ? null : OffsetDateTime.parse(timestamp).toLocalDate();
+        try {
+            return timestamp == null ? null : OffsetDateTime.parse(timestamp).toLocalDate();
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date " + timestamp);
+            return null;
+        }
     }
 }

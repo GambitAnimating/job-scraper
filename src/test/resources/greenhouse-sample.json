@@ -14,7 +14,14 @@
       "company_name": "Stripe",
       "absolute_url": "https://stripe.com/jobs/search?gh_jid=7012388",
       "first_published": null
+    },
+    {
+      "id": 7012335,
+      "title": "C# Engineer",
+      "company_name": "Stripe",
+      "absolute_url": "https://stripe.com/jobs/search?gh_jid=7012335",
+      "first_published": "yesterday"
     }
   ],
-  "meta": { "total": 2 }
+  "meta": { "total": 3 }
 }

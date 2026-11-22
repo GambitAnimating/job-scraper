@@ -38,9 +38,18 @@ class GreenhouseSourceTest {
         List<Job> jobs = parseSample();
         Job job = jobs.get(1); // no "location" key, "first_published": null
 
-        assertEquals(2, jobs.size());
+        assertEquals(3, jobs.size());
         assertNull(job.location());
         assertNull(job.postedDate());
         assertEquals("Data Engineer", job.title());
+    }
+
+    @Test
+    void invalidDatesAreHandled() throws IOException {
+        List<Job> jobs = parseSample();
+        Job job = jobs.get(2); // null PostedDate, "first_published": "yesterday"
+
+        assertEquals("C# Engineer", job.title());
+        assertNull(job.postedDate());
     }
 }
