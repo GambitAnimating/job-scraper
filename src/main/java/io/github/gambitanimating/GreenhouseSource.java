@@ -8,6 +8,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeParseException;
@@ -16,14 +17,17 @@ import java.util.List;
 
 /** Reads a company's public Greenhouse job board: one JSON request, no pagination. */
 public class GreenhouseSource implements JobSource {
-
+    static final Duration CONNECT_TIMEOUT = Duration.ofSeconds(10);
+    static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(10);
     static final String BASE_URL = "https://boards-api.greenhouse.io/v1/boards/";
     static final String SOURCE = "greenhouse";
 
     private final String boardToken;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    private final HttpClient client = HttpClient.newHttpClient();
+    private final HttpClient client = HttpClient.newBuilder()
+                                        .connectTimeout(CONNECT_TIMEOUT)
+                                        .build();
 
     public GreenhouseSource(String boardToken) {
         this.boardToken = boardToken;
@@ -37,6 +41,7 @@ public class GreenhouseSource implements JobSource {
                 .header("Accept", "application/json")
                 .header("User-Agent", "job-scraper/1.0 (+https://github.com/GambitAnimating/job-scraper)")
                 .GET()
+                .timeout(REQUEST_TIMEOUT)
                 .build();
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

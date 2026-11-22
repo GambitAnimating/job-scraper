@@ -60,6 +60,52 @@ foreign key from `Job` to `Company` and a unique constraint on
   the schema is created by an admin.
 - **Polite scraping.** Only public sources whose robots.txt and terms allow
   it, with a descriptive `User-Agent` that links back here.
+- **Official API before HTML.** For Stripe I used Greenhouse's public job
+  board API instead of scraping the careers page: structured JSON is far less
+  likely to break than page markup, and it's what the site offers for this.
+
+## What I expect to fail, and how I'd handle it
+
+| Failure | What happens today | What I'd do next |
+| --- | --- | --- |
+| The source changes its JSON shape (e.g. renames `title`) | The missing field becomes `null`. Because `Title` is `NOT NULL`, SQL Server rejects the row, the whole batch rolls back (losing the good jobs too), and the run is recorded as `FAILED`. | Validate the required fields in `Main` before saving: skip and log jobs missing a required value, and fail that source's run if more than a set share (say 5–30%) are bad, since that means the parser is broken, not one bad record. |
+| One malformed date (e.g. `"yesterday"`) | The date becomes `null`, which `PostedDate` allows, so the job is still saved; the bad value is printed to the console. (Tested in `GreenhouseSourceTest`.) | Log to a file instead of the console, and count bad dates per run, so a format change that breaks every date gets noticed instead of quietly saving nulls. |
+| The site is down, slow or rate-limits us | A non-200 status throws, and the run is recorded as `FAILED` | Add a request timeout, retry with backoff, and honour `Retry-After` on 429 |
+| The database is unreachable | The run fails, and recording `FAILED` fails too | Log failures to a file as well, so a run is never invisible |
+| Two runs at once | Two `MERGE`s could race on the same new job, and one fails on the unique constraint | Schedule one run per source at a time, or add `HOLDLOCK` to the `MERGE` |
+| A job is taken down | It stays in the table with an old `LastSeen` | That's deliberate: "no longer seen" becomes a report query instead of a delete |
+| Much more data (millions of jobs) | Row-by-row `MERGE` in batches | Load into a staging table (bulk copy), then one set-based `MERGE`; index `LastSeen` for the reports |
+
+## Security
+
+- **SQL injection:** everything we scrape is untrusted, since any site could put
+  SQL in a job title. An attacker can't inject SQL, because every value goes
+  through a `?` placeholder instead of string concatenation, so the value is
+  never parsed as SQL.
+- **Credentials:** the database password lives in Windows environment variables
+  (set with `setx`), and the code reads them with `System.getenv`. It isn't in the
+  code, because anyone with the compiled class could decompile it and it would
+  stay in git history forever. It isn't in IntelliJ's run configuration either,
+  because those files can be committed by accident. A git-ignored `.env` file is a
+  common alternative.
+- **Least privilege:** the app's database login can read and write rows in the
+  existing tables, but can't create or drop tables; only an admin can. If the code
+  has a bug, it can't accidentally drop our tables. If the password leaked, an
+  attacker couldn't drop tables or create new ones, but could still delete all the
+  company, job and run data, which is what backups are for.
+- **Scraped text on a web page:** if a job title or any other scraped text is ever
+  shown on a job board, it must be HTML-escaped. Otherwise an attacker could put a
+  script in a title, and it would run for every visitor (cross-site scripting).
+  Escaping shows the special symbols as text instead of treating them as markup.
+- **Transport:** the fetch from Greenhouse uses HTTPS, and the database connection
+  is encrypted with `encrypt=true`, so people on the same network can't read
+  what's being sent. `trustServerCertificate=true` skips checking the server's
+  certificate. Without that check you can't be sure who's on the other end:
+  somebody could act as the server and read everything (a man-in-the-middle
+  attack). Locally that's fine, because my SQL Server uses a self-signed
+  certificate and the connection never leaves my machine. In production the
+  setting would be off and the server would have a certificate from a trusted
+  authority.
 
 ## Running it
 

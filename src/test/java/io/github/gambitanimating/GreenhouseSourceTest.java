@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 /** Parses a saved sample of the Greenhouse feed, not the live site. */
 class GreenhouseSourceTest {
-
     private List<Job> parseSample() throws IOException {
         try (InputStream in = getClass().getResourceAsStream("/greenhouse-sample.json")) {
             String json = new String(in.readAllBytes(), StandardCharsets.UTF_8);
@@ -47,7 +46,7 @@ class GreenhouseSourceTest {
     @Test
     void invalidDatesAreHandled() throws IOException {
         List<Job> jobs = parseSample();
-        Job job = jobs.get(2); // null PostedDate, "first_published": "yesterday"
+        Job job = jobs.get(2); // "first_published": "yesterday", not a date
 
         assertEquals("C# Engineer", job.title());
         assertNull(job.postedDate());

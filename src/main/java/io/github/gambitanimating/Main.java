@@ -23,13 +23,15 @@ public class Main {
             jobRepository.recordRun(sourceSite, startTime, LocalDateTime.now(), jobsFound, newJobsFound, "SUCCESS");
 
             System.out.println(jobsFound + " jobs found. " + newJobsFound + " were new.");
-        }
-        catch (IOException | InterruptedException | SQLException e) {
-            System.err.println(e);
+        } catch (Exception e) {
+            e.printStackTrace();
             try {
                 jobRepository.recordRun(sourceSite, startTime, LocalDateTime.now(), 0, 0, "FAILED");
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
+            }
+            if (e instanceof InterruptedException) {
+                Thread.currentThread().interrupt();
             }
         }
     }
